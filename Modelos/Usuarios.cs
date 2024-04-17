@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BackendSAP.Modelos
+namespace IARecommendAPI.Modelos
 {
     public class Usuarios : IdentityUser
     {
