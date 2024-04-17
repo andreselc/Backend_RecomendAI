@@ -1,4 +1,4 @@
-﻿using BackendSAP.Modelos;
+﻿using IARecommendAPI.Modelos;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

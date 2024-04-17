@@ -5,8 +5,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using IARecommendAPI.Data;
-using BackendSAP.Modelos;
 using IARecommendAPI.Mappers;
+using IARecommendAPI.Modelos;
+using IARecommendAPI.Repositorios.IRepositorios;
+using IARecommendAPI.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
 builder.Services.AddIdentity<Usuarios, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Agregamos los repositorios
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 //Configuración de la autenticación
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
