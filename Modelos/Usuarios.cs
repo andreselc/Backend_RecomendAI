@@ -6,9 +6,6 @@ namespace IARecommendAPI.Modelos
 {
     public class Usuarios : IdentityUser
     {
-        //Añadir campos personalizados
-        [Required]
-        public string UserName { get; set; }
 
     }
 

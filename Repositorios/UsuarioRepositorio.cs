@@ -133,13 +133,11 @@ namespace IARecommendAPI.Repositorios
         //REGISTRO
         public async Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
         {
-
             Usuarios usuario = new Usuarios()
             {
                 UserName = usuarioRegistroDto.UserName,
                 Email = usuarioRegistroDto.Email,
                 NormalizedEmail = usuarioRegistroDto.Email.ToUpper(),
-
             };
 
             var result = await _userManager.CreateAsync(usuario, usuarioRegistroDto.Password);
@@ -153,13 +151,13 @@ namespace IARecommendAPI.Repositorios
                 }
 
                 await _userManager.AddToRoleAsync(usuario, usuarioRegistroDto.Role);
-                var usuarioRetornado = _bd.Usuarios.FirstOrDefault(u => u.UserName == usuarioRegistroDto.Email);
+                var usuarioRetornado = _bd.Usuarios.FirstOrDefault(u => u.UserName == usuarioRegistroDto.UserName);
 
                 return new UsuarioDatosDto()
                 {
                     Id = usuarioRetornado.Id,
-                    Email = usuarioRegistroDto.Email,
-                    UserName = usuarioRegistroDto.UserName
+                    Email = usuarioRetornado.Email,
+                    UserName = usuarioRetornado.UserName
                 };
 
             }
