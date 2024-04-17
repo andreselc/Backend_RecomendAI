@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using IARecommendAPI.Modelos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using IARecommendAPI.Data;
 using BackendSAP.Modelos;
+using IARecommendAPI.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,12 +43,44 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+//Agregar los Automappers
+builder.Services.AddAutoMapper(typeof(PaginaWebMapper));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description =
+        "Autenticación JWT usando el esquema Bearer.\r\n\r\n" +
+        "Ingresa la palabra 'Bearer' seguida de un [espacio] y después su token en el campo de abajo \r\n\r\n" +
+        "Ejemplo: \"Bearer asdfasdfasdfasdf\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+            Scheme = "oauth2",
+            Name = "Bearer",
+            In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
