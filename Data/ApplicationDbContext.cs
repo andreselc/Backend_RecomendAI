@@ -9,15 +9,20 @@ namespace IARecommendAPI.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
         }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      base.OnModelCreating(builder);
+         base.OnModelCreating(builder);
+         builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario});
+         base.OnModelCreating(builder);
+
         }
+
         //Agregar TODOS los modelos aqui
         public DbSet<Pelicula> Pelicula{ get; set; }
-        //Agregar los modelos aquí
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Like> Like { get; set; }
     }
 }
