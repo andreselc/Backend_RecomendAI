@@ -1,6 +1,6 @@
 ﻿using IARecommendAPI.Data;
 using IARecommendAPI.Modelos;
-using IARecommendAPI.Repositorios.IRepositorio;
+using IARecommendAPI.Repositorios.IRepositorios;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IARecommendAPI.Repositorios

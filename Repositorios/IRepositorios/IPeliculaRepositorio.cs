@@ -1,6 +1,6 @@
 ﻿using IARecommendAPI.Modelos;
 
-namespace IARecommendAPI.Repositorios.IRepositorio
+namespace IARecommendAPI.Repositorios.IRepositorios
 {
     public interface IPeliculaRepositorio
     {

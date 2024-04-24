@@ -9,8 +9,7 @@ namespace IARecommendAPI.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
-    }
+        }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -18,8 +17,7 @@ namespace IARecommendAPI.Data
         }
         //Agregar TODOS los modelos aqui
         public DbSet<Pelicula> Pelicula{ get; set; }
-
-    //Agregar los modelos aquí
-    public DbSet<Usuarios> Usuarios { get; set; }
+        //Agregar los modelos aquí
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }

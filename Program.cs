@@ -25,6 +25,7 @@ builder.Services.AddIdentity<Usuarios, IdentityRole>().AddEntityFrameworkStores<
 
 //Agregamos los repositorios
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
 
 //Configuración de la autenticación
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
@@ -49,17 +50,6 @@ builder.Services.AddAuthentication(x =>
 //Agregar los Automappers
 builder.Services.AddAutoMapper(typeof(PaginaWebMapper));
 
-//Configuramos a conexion a sql server
-builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
-{
-    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"));
-});
-
-// Agregarmos los repositorios primera interfaz y luego repositorio
-builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
-
-// agregar automapper
-builder.Services.AddAutoMapper(typeof(PeliculasMappers));
 
 // Add services to the container.
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IARecommendAPI.Modelos;
 using IARecommendAPI.Modelos.Dtos;
-using IARecommendAPI.Repositorios.IRepositorio;
+using IARecommendAPI.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
