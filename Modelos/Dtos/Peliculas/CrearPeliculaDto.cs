@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IARecommendAPI.Modelos.Dtos
+namespace IARecommendAPI.Modelos.Dtos.Peliculas
 {
     public class CrearPeliculaDto
     {
-       
+
         [Required(ErrorMessage = "El titulo_original de la pelicula es obligatorio")]
         [MaxLength(100, ErrorMessage = "El número máximo de caracteres es 100!")]
         public string Titulo_original { get; set; }

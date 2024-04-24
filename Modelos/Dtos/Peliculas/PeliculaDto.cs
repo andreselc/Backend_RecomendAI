@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IARecommendAPI.Modelos.Dtos
+namespace IARecommendAPI.Modelos.Dtos.Peliculas
 {
     public class PeliculaDto
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IARecommendAPI.Modelos;
-using IARecommendAPI.Modelos.Dtos;
+using IARecommendAPI.Modelos.Dtos.Peliculas;
 using IARecommendAPI.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
