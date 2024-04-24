@@ -13,5 +13,6 @@ namespace IARecommendAPI.Modelos
         public string Descripcion { get; set; }
         public DateTime Fecha_estreno { get; set; }
         public string Cartel_path { get; set; }
+        public string Genero_Pelicula { get; set; }
     }
 }
