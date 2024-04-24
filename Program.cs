@@ -49,6 +49,18 @@ builder.Services.AddAuthentication(x =>
 //Agregar los Automappers
 builder.Services.AddAutoMapper(typeof(PaginaWebMapper));
 
+//Configuramos a conexion a sql server
+builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
+{
+    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"));
+});
+
+// Agregarmos los repositorios primera interfaz y luego repositorio
+builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
+
+// agregar automapper
+builder.Services.AddAutoMapper(typeof(PeliculasMappers));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
