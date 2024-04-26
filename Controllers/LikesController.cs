@@ -20,7 +20,7 @@ namespace IARecommendAPI.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "admin")]
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
