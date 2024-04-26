@@ -5,43 +5,28 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IARecommendAPI.Repositorios
 {
-    public class PeliculaRepositorio : IPeliculaRepositorio
+    public class LikeRepositorio : ILikeRepositorio
     {
         private readonly ApplicationDbContext _bd;
-        public PeliculaRepositorio(ApplicationDbContext bd)
+        public LikeRepositorio(ApplicationDbContext bd)
         {
             _bd = bd;
         }
 
-        public bool CrearPelicula(Pelicula pelicula)
+        public bool GiveLike(Like like)
         {
-            _bd.Pelicula.Add(pelicula);
+            _bd.Like.Add(like);
             return Guardar();
         }
 
-        public ICollection<Pelicula> GetPeliculas()
+        public ICollection<Like> GetLikes()
         {
-            return _bd.Pelicula.OrderBy(c => c.Titulo_original).ToList();
+            return _bd.Like.OrderBy(c => c.Id_Like).ToList();
         }
-        public bool ExistePelicula(string nombre)
-        {
-            bool valor = _bd.Pelicula.Any(c => c.Titulo_original.ToLower().Trim() == nombre.ToLower().Trim());
-            return valor;
-        }
-
-        public bool ExistePelicula(int id)
-        {
-            bool valor = _bd.Pelicula.Any(c => c.Id_pelicula == id);
-            return valor;
-        }
-
+       
         public bool Guardar()
         {
             return _bd.SaveChanges() >= 0 ? true : false;
-        }
-        public Pelicula GetPelicula(string nombreP)
-        {
-            return _bd.Pelicula.FirstOrDefault(c => c.Titulo_original.ToLower().Trim() == nombreP.ToLower().Trim());
         }
     }
 }
