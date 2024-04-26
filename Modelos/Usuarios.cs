@@ -6,7 +6,7 @@ namespace IARecommendAPI.Modelos
 {
     public class Usuarios : IdentityUser
     {
-
+        public List<Like> Likes { get; } = new List<Like>();
     }
 
 }

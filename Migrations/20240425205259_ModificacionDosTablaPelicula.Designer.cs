@@ -4,6 +4,7 @@ using IARecommendAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IARecommendAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425205259_ModificacionDosTablaPelicula")]
+    partial class ModificacionDosTablaPelicula
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace IARecommendAPI.Migrations
                     b.Property<int>("Id_Like")
                         .HasColumnType("int");
 
-                    b.HasKey("Id_pelicula", "Id_usuario", "Id_Like");
+                    b.HasKey("Id_pelicula", "Id_usuario");
 
                     b.HasIndex("Id_usuario");
 
@@ -49,23 +52,19 @@ namespace IARecommendAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_pelicula"));
 
                     b.Property<string>("Cartel_path")
-                        .HasMaxLength(600)
-                        .HasColumnType("nvarchar(600)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Fecha_estreno")
+                    b.Property<DateTime>("Fecha_estreno")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Genero_Pelicula")
-                        .HasMaxLength(600)
-                        .HasColumnType("nvarchar(600)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Titulo_original")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id_pelicula");
 
@@ -273,13 +272,13 @@ namespace IARecommendAPI.Migrations
             modelBuilder.Entity("IARecommendAPI.Modelos.Like", b =>
                 {
                     b.HasOne("IARecommendAPI.Modelos.Pelicula", "PeliculasConLike")
-                        .WithMany("Likes")
+                        .WithMany()
                         .HasForeignKey("Id_pelicula")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("IARecommendAPI.Modelos.Usuarios", "usuarios")
-                        .WithMany("Likes")
+                        .WithMany()
                         .HasForeignKey("Id_usuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -338,16 +337,6 @@ namespace IARecommendAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("IARecommendAPI.Modelos.Pelicula", b =>
-                {
-                    b.Navigation("Likes");
-                });
-
-            modelBuilder.Entity("IARecommendAPI.Modelos.Usuarios", b =>
-                {
-                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }
