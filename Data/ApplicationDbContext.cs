@@ -15,7 +15,7 @@ namespace IARecommendAPI.Data
     protected override void OnModelCreating(ModelBuilder builder)
     {
          base.OnModelCreating(builder);
-         builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario});
+         builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario, e.Id_Like});
          base.OnModelCreating(builder);
 
         }

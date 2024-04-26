@@ -8,11 +8,11 @@ namespace IARecommendAPI.Modelos
     {
         [Key]
         public int Id_pelicula { get; set; }
-        [Required]
         public string Titulo_original{ get; set; }
         public string Descripcion { get; set; }
         public DateTime Fecha_estreno { get; set; }
         public string Cartel_path { get; set; }
         public string Genero_Pelicula { get; set; }
+        public List<Like> Likes { get; } = new List<Like>();
     }
 }
