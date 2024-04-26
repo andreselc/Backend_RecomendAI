@@ -26,6 +26,7 @@ builder.Services.AddIdentity<Usuarios, IdentityRole>().AddEntityFrameworkStores<
 //Agregamos los repositorios
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
+builder.Services.AddScoped<ILikeRepositorio, LikeRepositorio>();
 
 //Configuración de la autenticación
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
