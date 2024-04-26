@@ -34,8 +34,8 @@ namespace IARecommendAPI.Controllers
             return Ok(listaLikesDto);
         }
 
-       /* [HttpPost]
-        [ProducesResponseType(201, Type = typeof(LikeDto))]
+        /*[HttpPost]
+        [ProducesResponseType(201, Type = typeof(CrearLikeDto))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -50,10 +50,16 @@ namespace IARecommendAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var pelicula = _mapper.Map<Pelicula>(crearPeliculaDto);
-            if (!_pRepo.CrearPelicula(pelicula))
+            if (_caliRepo.ExisteCalificacionDuplicada(calificacion.usuarioId, calificacion.psicologoId))
             {
-                ModelState.AddModelError("", $"Algo salio mal guardando el registro de {pelicula.Titulo_original}");
+                ModelState.AddModelError("", "No puedes registrar dos calificaciones al mismo psicólogo.");
+                return StatusCode(400, ModelState);
+            }
+
+            var like = _mapper.Map<Like>(crearLikeDto);
+            if (!_likeRepo.GiveLike(like))
+            {
+                ModelState.AddModelError("", $"Algo salio mal guardando el registro de {like.Id_Like}");
                 return StatusCode(500, ModelState);
             }
             return CreatedAtRoute("GetPelicula", new { nombre = pelicula.Titulo_original }, pelicula);

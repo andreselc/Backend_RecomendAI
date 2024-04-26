@@ -24,6 +24,11 @@ namespace IARecommendAPI.Repositorios
             return _bd.Like.OrderBy(c => c.Id_Like).ToList();
         }
 
+        public bool ExisteLikeDuplicado(string idUsuario, int idPelicula)
+        {
+            return _bd.Like.Any(l => l.Id_usuario == idUsuario && l.Id_pelicula == idPelicula);
+        }
+
         public bool Guardar()
         {
             return _bd.SaveChanges() >= 0 ? true : false;
