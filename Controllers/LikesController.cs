@@ -62,7 +62,7 @@ namespace IARecommendAPI.Controllers
             var like = _mapper.Map<Like>(crearLikeDto);
             if (!_likeRepo.GiveLike(like))
             {
-                ModelState.AddModelError("", $"Algo salio mal guardando el registro de {like.Id_Like}");
+                ModelState.AddModelError("", $"Algo salio mal guardando el registro de la película {like.Id_pelicula} , hecha por {like.Id_usuario}");
                 return StatusCode(500, ModelState);
             }
             return Ok(like);
