@@ -9,8 +9,6 @@ namespace IARecommendAPI.Modelos
         public int Id_pelicula { get; set; }
         [Key]
         public string Id_usuario { get; set; }
-        [Key]
-        public int Id_Like { get; set; }
         [ForeignKey("Id_pelicula")]
         public Pelicula PeliculasConLike { get; set; }
         [ForeignKey("Id_usuario")]

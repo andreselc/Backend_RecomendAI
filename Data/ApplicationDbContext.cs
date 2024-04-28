@@ -15,10 +15,10 @@ namespace IARecommendAPI.Data
     protected override void OnModelCreating(ModelBuilder builder)
     {
          base.OnModelCreating(builder);
-         builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario, e.Id_Like});
+         builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario});
          base.OnModelCreating(builder);
 
-        }
+    }
 
         //Agregar TODOS los modelos aqui
         public DbSet<Pelicula> Pelicula{ get; set; }

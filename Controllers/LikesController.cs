@@ -3,6 +3,7 @@ using IARecommendAPI.Modelos;
 using IARecommendAPI.Modelos.Dtos.Likes;
 using IARecommendAPI.Modelos.Dtos.Peliculas;
 using IARecommendAPI.Repositorios.IRepositorios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IARecommendAPI.Controllers
@@ -19,6 +20,7 @@ namespace IARecommendAPI.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,7 +36,8 @@ namespace IARecommendAPI.Controllers
             return Ok(listaLikesDto);
         }
 
-        /*[HttpPost]
+        [Authorize(Roles = "admin,usuario")]
+        [HttpPost]
         [ProducesResponseType(201, Type = typeof(CrearLikeDto))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -50,20 +53,20 @@ namespace IARecommendAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_caliRepo.ExisteCalificacionDuplicada(calificacion.usuarioId, calificacion.psicologoId))
+            if (_likeRepo.ExisteLikeDuplicado(crearLikeDto.Id_usuario, crearLikeDto.Id_Pelicula))
             {
-                ModelState.AddModelError("", "No puedes registrar dos calificaciones al mismo psicólogo.");
+                ModelState.AddModelError("", "No puedes registrar dos likes a la misma película");
                 return StatusCode(400, ModelState);
             }
 
             var like = _mapper.Map<Like>(crearLikeDto);
             if (!_likeRepo.GiveLike(like))
             {
-                ModelState.AddModelError("", $"Algo salio mal guardando el registro de {like.Id_Like}");
+                ModelState.AddModelError("", $"Algo salio mal guardando el registro de la película {like.Id_pelicula} , hecha por {like.Id_usuario}");
                 return StatusCode(500, ModelState);
             }
-            return CreatedAtRoute("GetPelicula", new { nombre = pelicula.Titulo_original }, pelicula);
-        }*/
+            return Ok(like);
+        }
 
     }
 }

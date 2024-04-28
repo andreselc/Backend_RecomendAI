@@ -21,7 +21,7 @@ namespace IARecommendAPI.Repositorios
 
         public ICollection<Like> GetLikes()
         {
-            return _bd.Like.OrderBy(c => c.Id_Like).ToList();
+            return _bd.Like.OrderBy(c => c.Id_pelicula).ToList();
         }
 
         public bool ExisteLikeDuplicado(string idUsuario, int idPelicula)

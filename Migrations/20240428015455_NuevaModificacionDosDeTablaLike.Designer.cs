@@ -4,6 +4,7 @@ using IARecommendAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IARecommendAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240428015455_NuevaModificacionDosDeTablaLike")]
+    partial class NuevaModificacionDosDeTablaLike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,10 @@ namespace IARecommendAPI.Migrations
                     b.Property<string>("Id_usuario")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id_pelicula", "Id_usuario");
+                    b.Property<int>("Id_Like")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id_pelicula", "Id_usuario", "Id_Like");
 
                     b.HasIndex("Id_usuario");
 
