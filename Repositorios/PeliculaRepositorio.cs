@@ -43,5 +43,10 @@ namespace IARecommendAPI.Repositorios
         {
             return _bd.Pelicula.FirstOrDefault(c => c.Titulo_original.ToLower().Trim() == nombreP.ToLower().Trim());
         }
+
+        public ICollection<Pelicula> GetPeliculas_Genero(string genero)
+        {
+            return _bd.Pelicula.Where(c => c.Genero_Pelicula.Trim().Contains(genero.Trim())).ToList();
+        }
     }
 }

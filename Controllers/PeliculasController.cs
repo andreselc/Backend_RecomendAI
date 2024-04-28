@@ -79,5 +79,26 @@ namespace IARecommendAPI.Controllers
             var itemPeliDto = _mapper.Map<PeliculaDto>(itemPeli);
             return Ok(itemPeliDto);
         }
+
+        [HttpGet("BuscarPorGenero", Name = "GetPeliculas_Genero")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetPeliculas_Genero(string genero)
+        {
+            var listaPeliculas = _pRepo.GetPeliculas_Genero(genero);
+            if (listaPeliculas == null)
+            {
+                return NotFound();
+            }
+            var listaPeliculasDto = new List<PeliculaDto>();
+            foreach (var lista in listaPeliculas)
+            {
+                listaPeliculasDto.Add(_mapper.Map<PeliculaDto>(lista));
+
+            }
+            return Ok(listaPeliculasDto);
+        }
     }
 }

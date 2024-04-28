@@ -18,5 +18,8 @@ namespace IARecommendAPI.Modelos.Dtos.Peliculas
         [Required(ErrorMessage = "El Cartel_path (Imagen) de la pelicula es obligatorio")]
         public string Cartel_path { get; set; }
 
+        [Required(ErrorMessage = "EL Genero_Pelicula es obligatorio")]
+        public string Genero_Pelicula { get; set; }
+
     }
 }

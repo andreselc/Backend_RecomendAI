@@ -10,7 +10,8 @@ namespace IARecommendAPI.Repositorios.IRepositorios
         bool ExistePelicula(string nombre);
         bool ExistePelicula(int id);
         bool CrearPelicula(Pelicula pelicula);
-       
+        ICollection<Pelicula> GetPeliculas_Genero(String genero);
+
         bool Guardar();
     }
 }
