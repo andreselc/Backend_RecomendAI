@@ -18,7 +18,7 @@ namespace IARecommendAPI.Data
          builder.Entity<Like>().HasKey(e => new { e.Id_pelicula, e.Id_usuario, e.Id_Like});
          base.OnModelCreating(builder);
 
-        }
+    }
 
         //Agregar TODOS los modelos aqui
         public DbSet<Pelicula> Pelicula{ get; set; }
