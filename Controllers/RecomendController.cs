@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IARecommendAPI.Controllers
 {
@@ -11,6 +12,7 @@ namespace IARecommendAPI.Controllers
     [ApiController]
     public class RecomendController : ControllerBase
     {
+        [Authorize(Roles = "admin,usuario")]
         [HttpGet("Recomiendame", Name = "GetDatosApi")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
