@@ -16,6 +16,7 @@ namespace IARecommendAPI.Mappers
             CreateMap<Pelicula, CrearPeliculaDto>().ReverseMap();
             CreateMap<Pelicula, PeliculaDto>().ReverseMap();
             CreateMap<Pelicula, PeliculaDto>().ReverseMap();
+            CreateMap<Pelicula, PeliculasRecomendadasDto>().ReverseMap();
             CreateMap<Like, LikeDto>().ReverseMap();
             CreateMap<Like, CrearLikeDto>().ReverseMap();
         }
