@@ -85,6 +85,7 @@ namespace IARecommendAPI.Controllers
 
             _respuestasApi.StatusCode = HttpStatusCode.OK;
             _respuestasApi.IsSuccess = true;
+            _respuestasApi.Result = usuario;
             return Ok(_respuestasApi);
         }
 

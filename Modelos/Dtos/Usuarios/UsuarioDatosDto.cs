@@ -10,5 +10,6 @@ namespace IARecommendAPI.Modelos.Dtos.Usuarios
         public string Email { get; set; }
 
         public string UserName { get; set; }
+
     }
 }

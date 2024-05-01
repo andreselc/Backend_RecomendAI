@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace IARecommendAPI.Repositorios
 {
@@ -131,8 +132,11 @@ namespace IARecommendAPI.Repositorios
         }
 
         //REGISTRO
-        public async Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
+        public async Task<UsuarioLoginRespuestaDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
         {
+            var manejadorToken = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(claveSecreta);
+
             Usuarios usuario = new Usuarios()
             {
                 UserName = usuarioRegistroDto.UserName,
@@ -153,15 +157,27 @@ namespace IARecommendAPI.Repositorios
                 await _userManager.AddToRoleAsync(usuario, usuarioRegistroDto.Role);
                 var usuarioRetornado = _bd.Usuarios.FirstOrDefault(u => u.UserName == usuarioRegistroDto.UserName);
 
-                return new UsuarioDatosDto()
+                var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Id = usuarioRetornado.Id,
-                    Email = usuarioRetornado.Email,
-                    UserName = usuarioRetornado.UserName
+                    Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Email, usuario.Email.ToString()),
+                    new Claim(ClaimTypes.Role, usuarioRegistroDto.Role)
+                }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = manejadorToken.CreateToken(tokenDescriptor);
+
+                return new UsuarioLoginRespuestaDto()
+                {
+                    Token = manejadorToken.WriteToken(token),
+                    Usuario = _mapper.Map<UsuarioDatosDto>(usuarioRetornado)
                 };
 
             }
-            return new UsuarioDatosDto();
+            return new UsuarioLoginRespuestaDto();
         }
 
        //Buscar usuario por UserName
