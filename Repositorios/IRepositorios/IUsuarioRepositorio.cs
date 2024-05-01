@@ -10,6 +10,6 @@ namespace IARecommendAPI.Repositorios.IRepositorios
         bool IsUniqueUser(string usuario);
         Usuarios GetCurrentUser();
         Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto);
-        Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
+        Task<UsuarioLoginRespuestaDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
     }
 }
