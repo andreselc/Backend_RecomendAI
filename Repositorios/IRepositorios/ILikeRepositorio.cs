@@ -8,5 +8,6 @@ namespace IARecommendAPI.Repositorios.IRepositorios
         bool GiveLike(Like like);
         bool Guardar();
         public bool ExisteLikeDuplicado(string idUsuario, int idPelicula);
+        public ICollection<Like> GetThreeRandomLikesForUser(string userId, int numberOfLikes);
     }
 }

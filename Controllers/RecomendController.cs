@@ -5,6 +5,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using IARecommendAPI.Repositorios.IRepositorios;
 
 namespace IARecommendAPI.Controllers
 {
@@ -12,6 +14,14 @@ namespace IARecommendAPI.Controllers
     [ApiController]
     public class RecomendController : ControllerBase
     {
+        private readonly ILikeRepositorio _likeRepo;
+        private readonly IMapper _mapper;
+        public RecomendController(ILikeRepositorio likeRepo, IMapper mapper)
+        {
+            _likeRepo = likeRepo;
+            _mapper = mapper;
+        }
+
         [Authorize(Roles = "admin,usuario")]
         [HttpGet("Recomiendame", Name = "GetDatosApi")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
