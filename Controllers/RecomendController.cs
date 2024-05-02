@@ -7,6 +7,8 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using IARecommendAPI.Repositorios.IRepositorios;
+using IARecommendAPI.Modelos.Dtos.Likes;
+using IARecommendAPI.Modelos.Dtos.Peliculas;
 
 namespace IARecommendAPI.Controllers
 {
@@ -15,10 +17,12 @@ namespace IARecommendAPI.Controllers
     public class RecomendController : ControllerBase
     {
         private readonly ILikeRepositorio _likeRepo;
+        private readonly IUsuarioRepositorio _userRepo;
         private readonly IMapper _mapper;
-        public RecomendController(ILikeRepositorio likeRepo, IMapper mapper)
+        public RecomendController(ILikeRepositorio likeRepo, IUsuarioRepositorio userRepo, IMapper mapper)
         {
             _likeRepo = likeRepo;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 
@@ -28,6 +32,15 @@ namespace IARecommendAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetDatosApi(string NombrePelicula)
         {
+            var usuarioLogeado = _userRepo.GetCurrentUser();
+            var listaPeliculasRandom = _likeRepo.GetThreeRandomLikesForUser(usuarioLogeado.Id,3);
+            var peliculasRecomendadas = new List<PeliculasRecomendadasDto>();
+
+            foreach (var lista in listaPeliculasRandom)
+            {
+                peliculasRecomendadas.Add(_mapper.Map<PeliculasRecomendadasDto>(lista));
+            }
+
             // URL de la API Flask
             string apiUrl = "http://localhost:5000/recomendar_pelicula/" + NombrePelicula;
 
