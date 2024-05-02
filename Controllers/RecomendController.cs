@@ -9,6 +9,8 @@ using AutoMapper;
 using IARecommendAPI.Repositorios.IRepositorios;
 using IARecommendAPI.Modelos.Dtos.Likes;
 using IARecommendAPI.Modelos.Dtos.Peliculas;
+using IARecommendAPI.Modelos;
+using System.Text.Json;
 
 namespace IARecommendAPI.Controllers
 {
@@ -35,7 +37,7 @@ namespace IARecommendAPI.Controllers
         [HttpGet("Recomiendame", Name = "GetDatosApi")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetDatosApi(string NombrePelicula)
+        public async Task<IActionResult> GetDatosApi()
         {
             var usuarioLogeado = _userRepo.GetCurrentUser();
             var listaPeliculasRandomEnLikes = _likeRepo.GetThreeRandomLikesForUser(usuarioLogeado.Id,3);
@@ -56,10 +58,17 @@ namespace IARecommendAPI.Controllers
                 {
                     // Obtener el contenido de la respuesta
                     string jsonString = await response.Content.ReadAsStringAsync();
-                    peliculasRecomendadas.Add(_mapper.Map<PeliculasRecomendadasDto>(jsonString));
-                    return Ok(jsonString);
-                }
+                    Console.WriteLine(jsonString);
+                    var peliculasDto = JsonSerializer.Deserialize<ICollection<CrearPeliculaDto>>(jsonString);
+                    var peliculaRecomendada = new PeliculasRecomendadasDto
 
+                    {
+                        PeliculaDeReferencia = pelicula.Titulo_original, 
+                        Peliculas = peliculasDto
+                    };
+
+                    peliculasRecomendadas.Add(peliculaRecomendada);
+                }
                 else
                 {
                     return BadRequest(ModelState);
