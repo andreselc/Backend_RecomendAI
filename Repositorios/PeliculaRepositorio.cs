@@ -19,6 +19,11 @@ namespace IARecommendAPI.Repositorios
             return Guardar();
         }
 
+        public Pelicula GetPeliculaById(int idPelicula)
+        {
+            return _bd.Pelicula.FirstOrDefault(p => p.Id_pelicula == idPelicula);
+        }
+
         public ICollection<Pelicula> GetPeliculas()
         {
             return _bd.Pelicula.OrderBy(c => c.Titulo_original).ToList();

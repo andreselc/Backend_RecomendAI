@@ -6,6 +6,7 @@ namespace IARecommendAPI.Repositorios.IRepositorios
     {
         ICollection<Pelicula> GetPeliculas();
         Pelicula GetPelicula(string nombreP);
+        public Pelicula GetPeliculaById(int idPelicula);
 
         bool ExistePelicula(string nombre);
         bool ExistePelicula(int id);

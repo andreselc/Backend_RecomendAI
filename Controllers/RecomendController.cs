@@ -18,11 +18,16 @@ namespace IARecommendAPI.Controllers
     {
         private readonly ILikeRepositorio _likeRepo;
         private readonly IUsuarioRepositorio _userRepo;
+        private readonly IPeliculaRepositorio _peliRepo;
         private readonly IMapper _mapper;
-        public RecomendController(ILikeRepositorio likeRepo, IUsuarioRepositorio userRepo, IMapper mapper)
+        public RecomendController(ILikeRepositorio likeRepo, 
+            IUsuarioRepositorio userRepo,
+            IPeliculaRepositorio peliRepo,
+            IMapper mapper)
         {
             _likeRepo = likeRepo;
             _userRepo = userRepo;
+            _peliRepo = peliRepo;
             _mapper = mapper;
         }
 
@@ -38,6 +43,7 @@ namespace IARecommendAPI.Controllers
 
             foreach (var lista in listaPeliculasRandom)
             {
+                //await 
                 peliculasRecomendadas.Add(_mapper.Map<PeliculasRecomendadasDto>(lista));
             }
 
