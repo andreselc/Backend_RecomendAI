@@ -38,41 +38,35 @@ namespace IARecommendAPI.Controllers
         public async Task<IActionResult> GetDatosApi(string NombrePelicula)
         {
             var usuarioLogeado = _userRepo.GetCurrentUser();
-            var listaPeliculasRandom = _likeRepo.GetThreeRandomLikesForUser(usuarioLogeado.Id,3);
+            var listaPeliculasRandomEnLikes = _likeRepo.GetThreeRandomLikesForUser(usuarioLogeado.Id,3);
             var peliculasRecomendadas = new List<PeliculasRecomendadasDto>();
 
-            foreach (var lista in listaPeliculasRandom)
+            foreach (var lista in listaPeliculasRandomEnLikes)
             {
-                //await 
-                peliculasRecomendadas.Add(_mapper.Map<PeliculasRecomendadasDto>(lista));
+                var pelicula = _peliRepo.GetPeliculaById(lista.Id_pelicula);
+
+                string apiUrl = "http://localhost:5000/recomendar_pelicula/" + pelicula.Titulo_original;
+
+                HttpClient client = new HttpClient();
+
+                // Enviar solicitud GET
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Obtener el contenido de la respuesta
+                    string jsonString = await response.Content.ReadAsStringAsync();
+                    peliculasRecomendadas.Add(_mapper.Map<PeliculasRecomendadasDto>(jsonString));
+                    return Ok(jsonString);
+                }
+
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
 
-            // URL de la API Flask
-            string apiUrl = "http://localhost:5000/recomendar_pelicula/" + NombrePelicula;
-
-            // Crear cliente HTTP
-            HttpClient client = new HttpClient();
-
-            // Enviar solicitud GET
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-            // Comprobar si la solicitud fue exitosa
-            if (response.IsSuccessStatusCode)
-            {
-                // Obtener el contenido de la respuesta
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                // Deserializar JSON a objeto
-                // ...
-
-                // Devolver la respuesta
-                return Ok(jsonString);
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+        return Ok(peliculasRecomendadas);
         }
-
     }
 }
