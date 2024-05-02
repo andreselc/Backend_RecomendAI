@@ -44,6 +44,9 @@ namespace IARecommendAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult CreateLike([FromBody] CrearLikeDto crearLikeDto)
         {
+            Like like = new Like();
+            List<LikeDto> crearLike = new List<LikeDto>();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -53,19 +56,29 @@ namespace IARecommendAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_likeRepo.ExisteLikeDuplicado(crearLikeDto.Id_usuario, crearLikeDto.Id_Pelicula))
+            foreach (var likeDto in crearLikeDto.Likes)
             {
-                ModelState.AddModelError("", "No puedes registrar dos likes a la misma película");
-                return StatusCode(400, ModelState);
+
+                if (_likeRepo.ExisteLikeDuplicado(likeDto.Id_usuario, likeDto.Id_Pelicula))
+                {
+                    ModelState.AddModelError("", "No puedes registrar dos likes a la misma película");
+                    return StatusCode(400, ModelState);
+                }
             }
 
-            var like = _mapper.Map<Like>(crearLikeDto);
-            if (!_likeRepo.GiveLike(like))
+            foreach (var likeDto in crearLikeDto.Likes)
             {
-                ModelState.AddModelError("", $"Algo salio mal guardando el registro de la película {like.Id_pelicula} , hecha por {like.Id_usuario}");
-                return StatusCode(500, ModelState);
+                like = _mapper.Map<Like>(likeDto);
+                if (!_likeRepo.GiveLike(like))
+                {
+                    ModelState.AddModelError("", $"Algo salio mal guardando el registro de la película {like.Id_pelicula} , hecha por {like.Id_usuario}");
+                    return StatusCode(500, ModelState);
+                }
+
+                crearLike.Add(likeDto);
             }
-            return Ok(like);
+            
+            return Ok(crearLike);
         }
 
     }
