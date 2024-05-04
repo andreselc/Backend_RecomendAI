@@ -58,7 +58,7 @@ namespace IARecommendAPI.Controllers
                 {
                     // Obtener el contenido de la respuesta
                     string jsonString = await response.Content.ReadAsStringAsync();
-                    var peliculasDto = JsonSerializer.Deserialize<ICollection<CrearPeliculaDto>>(jsonString);
+                    var peliculasDto = JsonSerializer.Deserialize<ICollection<PeliculaEnListaDto>>(jsonString);
                     var peliculaRecomendada = new PeliculasRecomendadasDto
 
                     {
