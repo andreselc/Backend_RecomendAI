@@ -6,6 +6,6 @@ namespace IARecommendAPI.Modelos.Dtos.Peliculas
     {
         public string PeliculaDeReferencia { get; set; }
 
-        public ICollection<CrearPeliculaDto> Peliculas { get; set; }
+        public ICollection<PeliculaEnListaDto> Peliculas { get; set; }
     }
 }
