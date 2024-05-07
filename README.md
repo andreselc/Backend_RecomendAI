@@ -3,7 +3,7 @@ Backend del proyecto I de Inteligencia Artificial (UCAB)
 
 # Herramientas a Descargar
 
-1- Descargar Visual Studio Code.
+1- Descargar Visual Studio.
 
 2- Descargar el repositorio del backend de recomendAI.
 
