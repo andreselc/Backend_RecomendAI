@@ -1,8 +1,6 @@
 # Backend_RecomendAI
 Backend del proyecto I de Inteligencia Artificial (UCAB)
 
-Está realizado con una arquitectura hexagonal, siguiendo los principios de Domain Driven Design.
-
 # Herramientas a Descargar
 
 1- Descargar Visual Studio Code.
