@@ -44,7 +44,8 @@ Recuerdes colocar sus credenciales de la BD, eso es lo que va en ***ConexionSql*
 
    Esto se hace con el objetivo de que desde .NET7 se cree cada una de las tablas.
 
-![](Imagenes/Aspose.Words.7a202e5d-40a2-4438-84a6-0323c47ee99a.003.png)Nota: ER de la nuestra base de datos relacional
+![](Imagenes/Aspose.Words.7a202e5d-40a2-4438-84a6-0323c47ee99a.003.png)
+Nota: ER de la nuestra base de datos relacional
 
 3. Por cada migración se hará lo siguiente en la consola de Administrador de paquetes 
 
@@ -161,9 +162,22 @@ Con eso saben cuántas se insertaron, deben tener un total de 6616 películas in
 
 3. Al finalizar podrán usar con normalidad nuestro backend.
 
+# Modelo Entidad - Relacion -> Base de datos
+[Enlace al LucidChart](https://lucid.app/lucidchart/88c27a9e-347e-4177-b43a-2907123058bf/edit?viewport_loc=-11%2C-229%2C1433%2C625%2C0_0&invitationId=inv_3fe9dc71-9920-4e10-aa5c-8bf11e557ff6)
+
 ## Liberías y dependencias externas utilizadas:
 
+  ```bash
+1) AutoMapper (12.0.1)
+2) AutoMapper.Extensions.Microsoft.DependencyInjection (12.0.1)
+3) Microsoft.AspNetCore.Authentication.JwtBearer (7.0.10)
+4) Microsoft.AspNetCore.Identity.EntityFrameworkCore (7.0.10)
+5) Microsoft.AspNetCore.OpenApi (7.0.10)
+6) Microsoft.EntityFrameworkCore.SqlServer (7.0.0)
+7) Microsoft.EntityFrameworkCore.Tools (7.0.0)
+8) Swashbuckle.AspNetCore (6.5.0)
 
+```    
 
 ## Authors
 
